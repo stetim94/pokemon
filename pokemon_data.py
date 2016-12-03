@@ -83,7 +83,7 @@ class Pokemon(object):
         self.defense = floor((2 * self.base_defense + I ) * self.level / 100 + 5)
         self.max_hp = floor((2 * self.base_hp + I) * self.level / 100 + self.level + 10)
         self.hp = self.max_hp
-'''  
+'''
 class Move:
    def __init__(self, move):
       self.move = move
@@ -99,8 +99,8 @@ alakazam   =  Pokemon ("alakazam", 55 ,  50,  45,  120,  135, ["psychic"],alakaz
 jigglypuff =  Pokemon ("jigglypuff", 115,  45,  20,  20,  25, ["normal"],jigglypuff_moves )
 growlithe  =  Pokemon ("growlithe", 55,  70,  45,  60,  50, ["fire"],growlithe_moves)
 mew        =  Pokemon ("mew", 100,  100,  100 ,  100, 100, ["psychic"],mew_moves)
-seel       =  Pokemon ("seel", 65,  45,  55,  45,  70, ["water"],seel_moves) 
-gyarados   =  Pokemon ("gyarados", 95,  125,  79,  81,  100, ["water","flying"],gyarados_moves) 
+seel       =  Pokemon ("seel", 65,  45,  55,  45,  70, ["water"],seel_moves)
+gyarados   =  Pokemon ("gyarados", 95,  125,  79,  81,  100, ["water","flying"],gyarados_moves)
 staryu     =  Pokemon ("staryu", 30,  45,  55,  85,  70, ["water"],staryu_moves)
 blastoise  =  Pokemon ("blastoise", 79,  83,  100,  78,   85, ["water"],blastoise_moves)
 

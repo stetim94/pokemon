@@ -28,7 +28,7 @@ class show_pokemon:
       pokemon_label.grid(row=row,column=0)
       hp_label = tk.Label(self.pokemon_frame, text="hp: " + str(pokemon.hp) + "/" + str(pokemon.max_hp))
       hp_label.grid(row=row+1,column=0,pady=(0,10),padx=(0,30))
-      info_button = tk.Button(self.pokemon_frame, text="view info", command=partial(self.viewDetailsFrame, pokemon))  
+      info_button = tk.Button(self.pokemon_frame, text="view info", command=partial(self.viewDetailsFrame, pokemon))
       info_button.grid(row=row,column=1, rowspan=2)
       choice_button = tk.Button(self.pokemon_frame, text="choice", command=partial(self.viewBattleFrame, pokemon)) if pokemon.hp > 0 else tk.Button(self.pokemon_frame, text="choice", state="disabled")
       choice_button.grid(row=row,column=2, rowspan=2)
@@ -50,17 +50,17 @@ class detail_view:
       hp_label        = tk.Label(self.detail_frame, text="hp:")
       pokemon_hp      = tk.Label(self.detail_frame, text=str(pokemon.hp) + "/" + str(pokemon.max_hp))
       attack_label    = tk.Label(self.detail_frame, text="attack:")
-      pokemon_attack  = tk.Label(self.detail_frame, text=str(pokemon.attack)) 
-      defense_label   = tk.Label(self.detail_frame, text="defense:") 
+      pokemon_attack  = tk.Label(self.detail_frame, text=str(pokemon.attack))
+      defense_label   = tk.Label(self.detail_frame, text="defense:")
       pokemon_defense = tk.Label(self.detail_frame, text=str(pokemon.defense))
       back_button.grid(row=0,column=0)
       name_label.grid(row=1, column=0)
-      pokemon_name.grid(row=1 ,column=1)   
+      pokemon_name.grid(row=1 ,column=1)
       hp_label.grid(row=2, column=0)
-      pokemon_hp.grid(row=2 ,column=1)     
+      pokemon_hp.grid(row=2 ,column=1)
       attack_label.grid(row=3, column=0)
       pokemon_attack.grid(row=3, column=1)
-      defense_label.grid(row=4,column=0) 
+      defense_label.grid(row=4,column=0)
       pokemon_defense.grid(row=4, column=1)
       pokemon_type  = tk.Label(self.detail_frame, text="type:")
       pokemon_move  = tk.Label(self.detail_frame, text="move:")
@@ -80,11 +80,11 @@ class detail_view:
         acc_label   = tk.Label(self.detail_frame, text=pokemon.moves[x]["acc"])
         x += 1
         type_label.grid(row=x,column=2)
-        move_label.grid(row=x,column=3) 
+        move_label.grid(row=x,column=3)
         power_label.grid(row=x,column=4)
-        pp_label.grid(row=x,column=5)   
-        acc_label.grid(row=x,column=6) 
-        
+        pp_label.grid(row=x,column=5)
+        acc_label.grid(row=x,column=6)
+
       self.detail_frame.grid()
   def viewShowPokemon(self):
       self.detail_frame.destroy()
@@ -141,8 +141,8 @@ class battle_view:
       move_label.grid(row=x,column=0)
       type_label.grid(row=x,column=1)
       power_label.grid(row=x,column=2)
-      pp_label.grid(row=x,column=3)   
-      acc_label.grid(row=x,column=4) 
+      pp_label.grid(row=x,column=3)
+      acc_label.grid(row=x,column=4)
 
     self.moves_frame.grid(row=3,columnspan=2)
   def damage_order(self,trainer_move):
@@ -153,7 +153,7 @@ class battle_view:
       self.switch['state'] = 'disabled'
       gym_move = random.choice(self.gym_pokemon.moves)
       while not gym_move["pp"]: gym_move = random.choice(self.gym_pokemon.moves)
-      if self.trainer_pokemon.speed >= self.gym_pokemon.speed: 
+      if self.trainer_pokemon.speed >= self.gym_pokemon.speed:
         self.calculate_damage(self.trainer_pokemon,trainer_move,self.gym_pokemon)
         if self.gym_pokemon.hp > 0:
           self.calculate_damage(self.gym_pokemon,gym_move,self.trainer_pokemon)
@@ -162,7 +162,7 @@ class battle_view:
         if self.trainer_pokemon.hp > 0:
           self.calculate_damage(self.trainer_pokemon, trainer_move,self.gym_pokemon)
       self.update_hp_labels()
-  
+
 
   def calculate_damage(self,attacking_pokemon,move, defending_pokemon):
       move["pp"] -= 1
@@ -172,10 +172,10 @@ class battle_view:
       random_change = random.uniform(0.85,1)
       modifier = stab * type_effect * crit * random_change
       damage = floor((((2 * 50 + 10)/250) * (attacking_pokemon.attack/defending_pokemon.defense) * (move['power'])) * modifier) if random.random() < move["acc"] else 0
-      if damage: 
+      if damage:
         damage_label = tk.Label(self.attack_frame, text=move['name']+ " dealt " + str(damage) + " damage")
         damage_label.grid(row=self.row,column=0); self.row += 1
-        if type_effect > 1: 
+        if type_effect > 1:
             effective = tk.Label(self.attack_frame, text="It's super effective")
             effective.grid(row=self.row,column=0); self.row += 1
         elif type_effect < 1:
@@ -184,13 +184,13 @@ class battle_view:
         if crit == 1.5:
             critical_hit = tk.Label(self.attack_frame, text="A critical hit!")
             critical_hit.grid(row=self.row, column=0); self.row += 1
-      else: 
+      else:
         damage_label = tk.Label(self.attack_frame, text=move['name'] + " missed")
         damage_label.grid(row=self.row,column=0); self.row += 1
-      
-      
+
+
       defending_pokemon.hp -= damage
-      if defending_pokemon.hp < 0: 
+      if defending_pokemon.hp < 0:
         defending_pokemon.hp = 0
         fainted = tk.Label(self.attack_frame, text=defending_pokemon.name + " fainted")
         fainted.grid(row=self.row,column=0); self.row += 1
@@ -226,7 +226,7 @@ class battle_view:
           self.gym_label['text'] = self.gym_pokemon.name
           self.gym_hp_label['text'] = "hp: " + str(self.gym_pokemon.hp) + "/" + str(self.gym_pokemon.max_hp)
 
-        
+
   def winner(self):
     label = tk.Label(self.master, text="You won")
     label.pack()
@@ -234,7 +234,7 @@ class battle_view:
     label = tk.Label(self.master, text="You lost")
     label.pack()
 
-def main(): 
+def main():
     root = tk.Tk()
     app = start_game(root)
     root.mainloop()
