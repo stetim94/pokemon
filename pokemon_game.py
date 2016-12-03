@@ -1,11 +1,8 @@
 import tkinter as tk
-from functools import reduce
+from functools import reduce, partial
 from operator import mul
 from test_pokemon import *
 from functools import partial
-
-def partial(f, v):
-    return lambda: f(v)
 
 class start_game:
   def __init__(self,master):
@@ -22,11 +19,11 @@ class start_game:
     self.app = show_pokemon(self.master)
 
 class show_pokemon:
-  
   def __init__(self, master):
     self.master = master
     self.pokemon_frame = tk.Frame(master)
-    for row,pokemon in enumerate2(reinier,0,2):
+    for row,pokemon in enumerate(reinier):
+      row *= 2
       pokemon_label = tk.Label(self.pokemon_frame, text=pokemon.name)
       pokemon_label.grid(row=row,column=0)
       hp_label = tk.Label(self.pokemon_frame, text="hp: " + str(pokemon.hp) + "/" + str(pokemon.max_hp))

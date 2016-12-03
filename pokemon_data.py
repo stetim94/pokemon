@@ -72,8 +72,6 @@ class Pokemon(object):
         self.base_special = base_special
         self.types = types
         self.moves = moves
-        self.stats()
-    def stats(self):
         self.level = 50
         I = 0
         if self.base_attack % 2: I += 8
@@ -110,8 +108,3 @@ reinier = {pikachu : True, nidoking : True,alakazam : True,jigglypuff : True,gro
 gym = {seel: True,gyarados: True,staryu: True,blastoise: True}
 
 gym_pokemon = random.choice(list(gym.keys()))
-
-def enumerate2(xs, start=0, step=1):
-    for x in xs:
-        yield (start, x)
-        start += step
