@@ -1,5 +1,6 @@
 from math import floor
 import random
+
 attack_type = {
         "normal":  {"rock": 0.5,"ghost": 0},
         "fire":    {"fire": 0.5, "water": 0.5, "grass": 2, "bug": 2, "rock": 0.5, "dragon": 0.5},
@@ -17,8 +18,6 @@ attack_type = {
         "ghost":   {"normal": 0, "psychic": 0, "ghost": 2},
         "dragon":  {"dragon": 2}
 }
-
-
 
 thundershock = { "type" : "electric", "power":    40 , "acc": 1 ,     "pp" :   30   , "name": "thundershock"}
 slam         = { "type" : "normal"  , "power":    80 , "acc": 0.75 ,  "pp" :   20   , "name": "slam"}
@@ -49,6 +48,7 @@ bubble       = { "type" : "water"   , "power": 20,  "acc": 1,     "pp":   30    
 water_gun    = { "type" : "water"   , "power": 40 , "acc": 1,     "pp":   25        , "name": "water_gun"}
 bite         = { "type" : "normal"  , "power": 60 , "acc": 1,     "pp":   25        , "name": "bite"}
 skull_bash   = { "type" : "normal"  , "power": 100, "acc": 1,     "pp":   15        , "name": "skull_bash"}
+
 
 pikachu_moves = [thundershock, slam, thunderbolt, thunder]
 nidoking_moves = [horn_attack, poison_sting, thrash, double_kick]
@@ -83,6 +83,8 @@ class Pokemon(object):
         self.defense = floor((2 * self.base_defense + I ) * self.level / 100 + 5)
         self.max_hp = floor((2 * self.base_hp + I) * self.level / 100 + self.level + 10)
         self.hp = self.max_hp
+
+
 '''
 class Move:
    def __init__(self, move):
@@ -93,6 +95,8 @@ class Move:
       self.pp = move["pp"]
       self.name = move["name"]
 '''
+
+
 pikachu    =  Pokemon ("pikachu", 35,  55,  30,  90,  50, ["electric"],pikachu_moves)
 nidoking   =  Pokemon ("nidoking", 81,  92,  77,  85,  75, ["poison","ground"],nidoking_moves )
 alakazam   =  Pokemon ("alakazam", 55 ,  50,  45,  120,  135, ["psychic"],alakazam_moves)
@@ -106,5 +110,4 @@ blastoise  =  Pokemon ("blastoise", 79,  83,  100,  78,   85, ["water"],blastois
 
 reinier = {pikachu : True, nidoking : True,alakazam : True,jigglypuff : True,growlithe : True,mew : True}
 gym = {seel: True,gyarados: True,staryu: True,blastoise: True}
-
 gym_pokemon = random.choice(list(gym.keys()))

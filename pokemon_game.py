@@ -14,6 +14,7 @@ class start_game:
         next_button = tk.Button(self.start_frame, text="next", command=self.choice_pokemon)
         next_button.grid()
         self.start_frame.grid()
+
     def choice_pokemon(self):
         self.start_frame.destroy()
         self.app = show_pokemon(self.master)
@@ -37,9 +38,12 @@ class show_pokemon:
   def viewDetailsFrame(self,pokemon):
       self.pokemon_frame.grid_forget()
       self.app = detail_view(self.master,pokemon)
+
   def viewBattleFrame(self,pokemon):
       self.pokemon_frame.grid_forget()
       self.app = battle_view(self.master,pokemon)
+
+
 class detail_view:
     def __init__(self, master,pokemon):
         self.master = master
@@ -84,11 +88,12 @@ class detail_view:
             power_label.grid(row=x,column=4)
             pp_label.grid(row=x,column=5)
             acc_label.grid(row=x,column=6)
-
       self.detail_frame.grid()
+
   def viewShowPokemon(self):
       self.detail_frame.destroy()
       self.app = show_pokemon(self.master)
+
 
 class battle_view:
     def __init__(self, master,trainer_pokemon):
@@ -102,7 +107,6 @@ class battle_view:
         # to grid
         self.gym_label.grid(row=0,column=0)
         self.gym_hp_label.grid(row=0,column=1)
-
         #trainer
         trainer_label         = tk.Label(self.battle_frame, text=trainer_pokemon.name)
         self.trainer_hp_label = tk.Label(self.battle_frame, text="hp: " + str(self.trainer_pokemon.hp) + "/" + str(self.trainer_pokemon.max_hp))
@@ -115,6 +119,7 @@ class battle_view:
         self.switch.grid(row=2,column=1)
         #frame to grid
         self.battle_frame.grid()
+
     def switch_pokemon(self):
         self.battle_frame.destroy()
         self.app = show_pokemon(self.master)
@@ -143,8 +148,8 @@ class battle_view:
             power_label.grid(row=x,column=2)
             pp_label.grid(row=x,column=3)
             acc_label.grid(row=x,column=4)
-
         self.moves_frame.grid(row=3,columnspan=2)
+
     def damage_order(self,trainer_move):
         self.moves_frame.destroy()
         self.attack_frame = tk.Frame(self.battle_frame)
@@ -152,7 +157,8 @@ class battle_view:
         self.attack['state'] = 'disabled'
         self.switch['state'] = 'disabled'
         gym_move = random.choice(self.gym_pokemon.moves)
-        while not gym_move["pp"]: gym_move = random.choice(self.gym_pokemon.moves)
+        while not gym_move["pp"]:
+            gym_move = random.choice(self.gym_pokemon.moves)
         if self.trainer_pokemon.speed >= self.gym_pokemon.speed:
             self.calculate_damage(self.trainer_pokemon,trainer_move,self.gym_pokemon)
             if self.gym_pokemon.hp > 0:
@@ -162,7 +168,6 @@ class battle_view:
             if self.trainer_pokemon.hp > 0:
                 self.calculate_damage(self.trainer_pokemon, trainer_move,self.gym_pokemon)
         self.update_hp_labels()
-
 
     def calculate_damage(self,attacking_pokemon,move, defending_pokemon):
         move["pp"] -= 1
@@ -187,8 +192,6 @@ class battle_view:
         else:
             damage_label = tk.Label(self.attack_frame, text=move['name'] + " missed")
             damage_label.grid(row=self.row,column=0); self.row += 1
-
-
         defending_pokemon.hp -= damage
         if defending_pokemon.hp < 0:
             defending_pokemon.hp = 0
@@ -201,6 +204,7 @@ class battle_view:
         self.trainer_hp_label["text"] = "hp: " + str(self.trainer_pokemon.hp) + "/" + str(self.trainer_pokemon.max_hp)
         button = tk.Button(self.attack_frame, text="continue", command=self.clean)
         button.grid(row=self.row,column=0)
+
     def clean(self):
         self.attack_frame.destroy()
         self.attack['state'] = 'normal'
@@ -226,18 +230,20 @@ class battle_view:
                 self.gym_label['text'] = self.gym_pokemon.name
                 self.gym_hp_label['text'] = "hp: " + str(self.gym_pokemon.hp) + "/" + str(self.gym_pokemon.max_hp)
 
-
     def winner(self):
         label = tk.Label(self.master, text="You won")
         label.pack()
+
     def loser(self):
         label = tk.Label(self.master, text="You lost")
         label.pack()
+
 
 def main():
     root = tk.Tk()
     app = start_game(root)
     root.mainloop()
+
 
 if __name__ == '__main__':
     main()
