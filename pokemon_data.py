@@ -1,5 +1,6 @@
 from math import floor
 import random
+
 attack_type = {
         "normal":  {"rock": 0.5,"ghost": 0},
         "fire":    {"fire": 0.5, "water": 0.5, "grass": 2, "bug": 2, "rock": 0.5, "dragon": 0.5},
@@ -17,8 +18,6 @@ attack_type = {
         "ghost":   {"normal": 0, "psychic": 0, "ghost": 2},
         "dragon":  {"dragon": 2}
 }
-
-
 
 thundershock = { "type" : "electric", "power":    40 , "acc": 1 ,     "pp" :   30   , "name": "thundershock"}
 slam         = { "type" : "normal"  , "power":    80 , "acc": 0.75 ,  "pp" :   20   , "name": "slam"}
@@ -50,6 +49,7 @@ water_gun    = { "type" : "water"   , "power": 40 , "acc": 1,     "pp":   25    
 bite         = { "type" : "normal"  , "power": 60 , "acc": 1,     "pp":   25        , "name": "bite"}
 skull_bash   = { "type" : "normal"  , "power": 100, "acc": 1,     "pp":   15        , "name": "skull_bash"}
 
+
 pikachu_moves = [thundershock, slam, thunderbolt, thunder]
 nidoking_moves = [horn_attack, poison_sting, thrash, double_kick]
 alakazam_moves = [confusion, psybeam, psychic]
@@ -72,8 +72,6 @@ class Pokemon(object):
         self.base_special = base_special
         self.types = types
         self.moves = moves
-        self.stats()
-    def stats(self):
         self.level = 50
         I = 0
         if self.base_attack % 2: I += 8
@@ -85,7 +83,9 @@ class Pokemon(object):
         self.defense = floor((2 * self.base_defense + I ) * self.level / 100 + 5)
         self.max_hp = floor((2 * self.base_hp + I) * self.level / 100 + self.level + 10)
         self.hp = self.max_hp
-'''  
+
+
+'''
 class Move:
    def __init__(self, move):
       self.move = move
@@ -95,23 +95,19 @@ class Move:
       self.pp = move["pp"]
       self.name = move["name"]
 '''
+
+
 pikachu    =  Pokemon ("pikachu", 35,  55,  30,  90,  50, ["electric"],pikachu_moves)
 nidoking   =  Pokemon ("nidoking", 81,  92,  77,  85,  75, ["poison","ground"],nidoking_moves )
 alakazam   =  Pokemon ("alakazam", 55 ,  50,  45,  120,  135, ["psychic"],alakazam_moves)
 jigglypuff =  Pokemon ("jigglypuff", 115,  45,  20,  20,  25, ["normal"],jigglypuff_moves )
 growlithe  =  Pokemon ("growlithe", 55,  70,  45,  60,  50, ["fire"],growlithe_moves)
 mew        =  Pokemon ("mew", 100,  100,  100 ,  100, 100, ["psychic"],mew_moves)
-seel       =  Pokemon ("seel", 65,  45,  55,  45,  70, ["water"],seel_moves) 
-gyarados   =  Pokemon ("gyarados", 95,  125,  79,  81,  100, ["water","flying"],gyarados_moves) 
+seel       =  Pokemon ("seel", 65,  45,  55,  45,  70, ["water"],seel_moves)
+gyarados   =  Pokemon ("gyarados", 95,  125,  79,  81,  100, ["water","flying"],gyarados_moves)
 staryu     =  Pokemon ("staryu", 30,  45,  55,  85,  70, ["water"],staryu_moves)
 blastoise  =  Pokemon ("blastoise", 79,  83,  100,  78,   85, ["water"],blastoise_moves)
 
 reinier = {pikachu : True, nidoking : True,alakazam : True,jigglypuff : True,growlithe : True,mew : True}
 gym = {seel: True,gyarados: True,staryu: True,blastoise: True}
-
 gym_pokemon = random.choice(list(gym.keys()))
-
-def enumerate2(xs, start=0, step=1):
-    for x in xs:
-        yield (start, x)
-        start += step
