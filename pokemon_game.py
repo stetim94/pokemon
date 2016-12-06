@@ -134,18 +134,18 @@ class battle_view:
     pokemon_power.grid(row=0,column=2)
     pokemon_pp.grid(row=0,column=3)
     pokemon_acc.grid(row=0,column=4)
-    for x, y in zip(range(len(self.trainer_pokemon.moves)),self.trainer_pokemon.moves):
-      move_label  = tk.Button(self.moves_frame, text=self.trainer_pokemon.moves[x]["name"] ,command=partial(self.damage_order, y))
-      type_label  = tk.Label(self.moves_frame, text=self.trainer_pokemon.moves[x]["type"])
-      power_label = tk.Label(self.moves_frame, text=self.trainer_pokemon.moves[x]["power"])
-      pp_label    = tk.Label(self.moves_frame, text=self.trainer_pokemon.moves[x]["pp"])
-      acc_label   = tk.Label(self.moves_frame, text=str(self.trainer_pokemon.moves[x]["acc"] * 100) + "%")
-      x += 1
-      move_label.grid(row=x,column=0)
-      type_label.grid(row=x,column=1)
-      power_label.grid(row=x,column=2)
-      pp_label.grid(row=x,column=3)   
-      acc_label.grid(row=x,column=4) 
+    for row, move in zip(range(len(self.trainer_pokemon.moves)),self.trainer_pokemon.moves):
+      move_label  = tk.Button(self.moves_frame, text=move["name"] ,command=partial(self.damage_order, move))
+      type_label  = tk.Label(self.moves_frame, text=move["type"])
+      power_label = tk.Label(self.moves_frame, text=move["power"])
+      pp_label    = tk.Label(self.moves_frame, text=move["pp"])
+      acc_label   = tk.Label(self.moves_frame, text=str(move["acc"] * 100) + "%")
+      row += 1
+      move_label.grid(row=row,column=0)
+      type_label.grid(row=row,column=1)
+      power_label.grid(row=row,column=2)
+      pp_label.grid(row=row,column=3)   
+      acc_label.grid(row=row,column=4) 
 
     self.moves_frame.grid(row=3,columnspan=2)
   def damage_order(self,trainer_move):
@@ -174,6 +174,7 @@ class battle_view:
       crit = 1.5 if random.random() < 0.0625 else 1
       random_change = random.uniform(0.85,1)
       modifier = stab * type_effect * crit * random_change
+      category = attacking_pokemon.attack/defending_pokemon.defense if move['category'] == "physical" else attacking_pokemon.special_attack/defending_pokemon.special_defense
       damage = floor((((2 * 50 + 10)/250) * (attacking_pokemon.attack/defending_pokemon.defense) * (move['power'])) * modifier) if random.random() < move["acc"] else 0
       if damage: 
         damage_label = tk.Label(self.attack_frame, text=move['name']+ " dealt " + str(damage) + " damage")
