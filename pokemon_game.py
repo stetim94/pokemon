@@ -1,8 +1,10 @@
+#!/usr/bin/env python
 import tkinter as tk
 from functools import reduce
 from operator import mul
-from test_pokemon import *
+from pokemon_data import *
 from functools import partial
+#from PIL import Image, ImageTk
 
 def partial(f, v):
     return lambda: f(v)
@@ -80,7 +82,7 @@ class detail_view:
         move_label  = tk.Label(self.detail_frame, text=pokemon.moves[x]['name'])
         power_label = tk.Label(self.detail_frame, text=pokemon.moves[x]["power"])
         pp_label    = tk.Label(self.detail_frame, text=pokemon.moves[x]["pp"])
-        acc_label   = tk.Label(self.detail_frame, text=pokemon.moves[x]["acc"])
+        acc_label   = tk.Label(self.detail_frame, text=str(pokemon.moves[x]["acc"] * 100) + "%")
         x += 1
         type_label.grid(row=x,column=2)
         move_label.grid(row=x,column=3) 
@@ -95,27 +97,29 @@ class detail_view:
 
 class battle_view:
   def __init__(self, master,trainer_pokemon):
+    
+    
     self.master          = master
     self.battle_frame    = tk.Frame(master)
     self.trainer_pokemon = trainer_pokemon
     self.gym_pokemon     = gym_pokemon
     # gym
-    self.gym_label    = tk.Label(self.battle_frame, text=self.gym_pokemon.name)
-    self.gym_hp_label = tk.Label(self.battle_frame, text="hp: " + str(self.gym_pokemon.hp) + "/" + str(self.gym_pokemon.max_hp))
+    self.gym_label    = tk.Label(self.battle_frame, text=self.gym_pokemon.name, padx=5,pady=5)
+    self.gym_hp_label = tk.Label(self.battle_frame, text="hp: " + str(self.gym_pokemon.hp) + "/" + str(self.gym_pokemon.max_hp), padx=5,pady=5)
     # to grid
     self.gym_label.grid(row=0,column=0)
     self.gym_hp_label.grid(row=0,column=1)
 
     #trainer
-    trainer_label         = tk.Label(self.battle_frame, text=trainer_pokemon.name)
-    self.trainer_hp_label = tk.Label(self.battle_frame, text="hp: " + str(self.trainer_pokemon.hp) + "/" + str(self.trainer_pokemon.max_hp))
+    self.trainer_label    = tk.Label(self.battle_frame, text=trainer_pokemon.name, padx=5,pady=5)
+    self.trainer_hp_label = tk.Label(self.battle_frame, text="hp: " + str(self.trainer_pokemon.hp) + "/" + str(self.trainer_pokemon.max_hp), padx=5,pady=5)
     self.attack           = tk.Button(self.battle_frame, text="attack", command=self.load_moves, state='normal')
     self.switch           = tk.Button(self.battle_frame, text="switch", command=self.switch_pokemon, state='normal')
     # to grid
-    trainer_label.grid(row=1,column=0)
-    self.trainer_hp_label.grid(row=1,column=1)
-    self.attack.grid(row=2,column=0)
-    self.switch.grid(row=2,column=1)
+    self.trainer_label.grid(row=2,column=0)
+    self.trainer_hp_label.grid(row=2,column=1)
+    self.attack.grid(row=3,column=0)
+    self.switch.grid(row=3,column=1)
     #frame to grid
     self.battle_frame.grid()
   def switch_pokemon(self):
@@ -147,7 +151,7 @@ class battle_view:
       pp_label.grid(row=row,column=3)   
       acc_label.grid(row=row,column=4) 
 
-    self.moves_frame.grid(row=3,columnspan=2)
+    self.moves_frame.grid(row=4,columnspan=2)
   def damage_order(self,trainer_move):
       self.moves_frame.destroy()
       self.attack_frame = tk.Frame(self.battle_frame)
@@ -198,7 +202,7 @@ class battle_view:
         defending_pokemon.hp = 0
         fainted = tk.Label(self.attack_frame, text=defending_pokemon.name + " fainted")
         fainted.grid(row=self.row,column=0); self.row += 1
-      self.attack_frame.grid(row=3,columnspan=2)
+      self.attack_frame.grid(row=4,columnspan=2)
 
   def update_hp_labels(self):
       self.gym_hp_label['text'] = "hp: " + str(self.gym_pokemon.hp) + "/" + str(self.gym_pokemon.max_hp)
@@ -232,11 +236,16 @@ class battle_view:
 
         
   def winner(self):
-    label = tk.Label(self.master, text="You won")
+    label = tk.Label(self.master, text="You won, congratulations\n You won the Cascade Badge!\n You unlocked HM03!\n\
+    HM03 is added to your HM/TM moves\n HM03 is surf\n\
+    Je hebt van de gym gewonnen!\n de hoogste tijd dat we aan jou cadeautjes begonnen\n Misty deelt helaas niet nog meer cadeautjes uit\n\
+    maar ze helpt je wel vooruit\n met HM03 komen je cadeautjes een stap dicterbij\n zet hem op, kei! ")
     label.pack()
   def loser(self):
     label = tk.Label(self.master, text="You lost")
     label.pack()
+
+# the image
 
 def main(): 
     root = tk.Tk()
