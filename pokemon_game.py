@@ -13,8 +13,8 @@ class start_game:
   def __init__(self,master):
     self.master = master
     self.start_frame = tk.Frame(master)
-    start_label = tk.Label(self.start_frame, text="Welkom bij dit pokemon spel\n\n je moet de watergym verslaan.\n\
-          de eerste pokemon van de gym is: " + gym_pokemon.name + "\nclick next to choice your pokemon")
+    start_label = tk.Label(self.start_frame, text="welcome to the world of pokemonl\n\n You have to beat the water gym.\n\
+          the gym choices the following pokemon first: " + gym_pokemon.name + "\nclick next to choice your pokemon")
     start_label.grid()
     next_button = tk.Button(self.start_frame, text="next", command=self.choice_pokemon)
     next_button.grid()
@@ -236,10 +236,7 @@ class battle_view:
 
         
   def winner(self):
-    label = tk.Label(self.master, text="You won, congratulations\n You won the Cascade Badge!\n You unlocked HM03!\n\
-    HM03 is added to your HM/TM moves\n HM03 is surf\n\
-    Je hebt van de gym gewonnen!\n de hoogste tijd dat we aan jou cadeautjes begonnen\n Misty deelt helaas niet nog meer cadeautjes uit\n\
-    maar ze helpt je wel vooruit\n met HM03 komen je cadeautjes een stap dicterbij\n zet hem op, kei! ")
+    label = tk.Label(self.master, text="You won, congratulations\n")
     label.pack()
   def loser(self):
     label = tk.Label(self.master, text="You lost")
