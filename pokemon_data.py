@@ -1,5 +1,7 @@
 from math import floor
 import random
+
+# effectivines of attack against defending pokemon
 attack_type = {
         "normal":  {"rock": 0.5,"ghost": 0},
         "fire":    {"fire": 0.5, "water": 0.5, "grass": 2, "bug": 2, "rock": 0.5, "dragon": 0.5},
@@ -19,8 +21,7 @@ attack_type = {
         "dark":    {"fighting": 0.5, "psychic": 2, "ghost": 2, "dark": 0.5}
 }
 
-
-
+# possible moves/attacks
 absorb         = { "type": "grass"   , "category": "special" , "acc": 1   ,"power": 20 ,"pp": 25, "name": "absorb"}
 acid           = { "type": "poison"  , "category": "special" , "acc": 1   ,"power": 40 ,"pp": 30, "name": "acid"}
 acid_armor     = { "type": "poison"  , "category": "status"  , "acc": 1   ,"power": 0  ,"pp": 20, "name": "acid armor"}
@@ -187,6 +188,7 @@ wing_attack    = { "type": "flying"  , "category": "physical", "acc": 1   ,"powe
 withdraw       = { "type": "water"   , "category": "status"  , "acc": 1   ,"power": 0  ,"pp": 40, "name": "withdraw"}
 wrap           = { "type": "normal"  , "category": "physical", "acc": 0.9 ,"power": 15 ,"pp": 20, "name": "wrap"}
 
+# moves the pokemon have
 pikachu_moves    = [thunder_shock, slam, thunderbolt, thunder]
 nidoking_moves   = [horn_attack, poison_sting, thrash, double_kick]
 alakazam_moves   = [confusion, psybeam, psychic]
@@ -225,16 +227,7 @@ class Pokemon(object):
         self.special_attack = floor((2 * self.base_special_attack + I ) * self.level / 100 + 5)
         self.special_defense = floor((2 * self.base_special_defense + I ) * self.level / 100 + 5)
         self.hp = self.max_hp
-'''  
-class Move:
-   def __init__(self, move):
-      self.move = move
-      self.typen = move["type"]
-      self.power = move["power"]
-      self.acc = move["acc"]
-      self.pp = move["pp"]
-      self.name = move["name"]
-'''
+
 pikachu    =  Pokemon ("pikachu", 35,  55,  30,  90,  50, 40, ["electric"],pikachu_moves)
 nidoking   =  Pokemon ("nidoking", 81,  92,  77,  85, 85, 75, ["poison","ground"],nidoking_moves )
 alakazam   =  Pokemon ("alakazam", 55 ,  50,  45,  120,  135, 85, ["psychic"],alakazam_moves)
@@ -250,8 +243,3 @@ reinier = {pikachu : True, nidoking : True,alakazam : True,jigglypuff : True,gro
 gym = {seel: True,gyarados: True,staryu: True,blastoise: True}
 
 gym_pokemon = random.choice(list(gym.keys()))
-
-def enumerate2(xs, start=0, step=1):
-    for x in xs:
-        yield (start, x)
-        start += step
