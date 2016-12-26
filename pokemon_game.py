@@ -4,8 +4,12 @@ from functools import reduce
 from operator import mul
 from pokemon_data import *
 from functools import partial
-#from PIL import Image, ImageTk
 
+def enumerate2(xs, start=0, step=1):
+    for x in xs:
+        yield (start, x)
+        start += step
+        
 def partial(f, v):
     return lambda: f(v)
 
